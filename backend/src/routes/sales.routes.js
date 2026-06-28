@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
   const tax_amount = items.reduce((sum, item) => sum + ((parseFloat(item.unit_price) || 0) * (parseInt(item.quantity) || 0) * (parseFloat(item.gst_percentage) || 0) / 100), 0)
   const discount_amount = subtotal * (parseFloat(discount_percentage) || 0) / 100
   const total_amount = subtotal + tax_amount - discount_amount
-  const [invoice] = await query('SELECT CONCAT("INV", DATE_FORMAT(NOW(), "%Y%m%d"), LPAD(COUNT(*) + 1, 4, "0")) AS invoice_number FROM sales')
+  const [invoice] = await query("SELECT CONCAT('INV', DATE_FORMAT(NOW(), '%Y%m%d'), LPAD(COUNT(*) + 1, 4, '0')) AS invoice_number FROM sales")
   const result = await query(`INSERT INTO sales (invoice_number, patient_id, total_amount, tax_amount, discount_percentage, payment_method, paid_amount, payment_status, sale_date, sale_time, created_by_name)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), DATE_FORMAT(NOW(), '%H:%i:%s'), ?)`, [
       invoice.invoice_number, patient_id || null, total_amount, tax_amount, discount_percentage, payment_method, paid_amount,
