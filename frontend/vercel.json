@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://medistock-pro-xuhq.onrender.com/api/:path*"
+      "destination": "https://medistock-pro-2.onrender.com/api/:path*"
     },
     {
       "source": "/(.*)",
